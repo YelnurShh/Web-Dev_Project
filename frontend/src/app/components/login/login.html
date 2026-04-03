@@ -1,0 +1,24 @@
+<div style="max-width: 400px; margin: 50px auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-family: sans-serif; background: #fff;">
+  <h2 style="text-align: center; color: #333;">Кіру (Логин)</h2>
+  
+  <div *ngIf="errorMessage" style="background: #ffebee; color: #c62828; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+    {{ errorMessage }}
+  </div>
+
+  <div style="margin-bottom: 15px;">
+    <label style="display: block; margin-bottom: 5px; color: #555;">Логин (Username):</label>
+    <input type="text" [(ngModel)]="username" placeholder="Логиніңізді жазыңыз" 
+           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+  </div>
+
+  <div style="margin-bottom: 20px;">
+    <label style="display: block; margin-bottom: 5px; color: #555;">Пароль:</label>
+    <input type="password" [(ngModel)]="password" placeholder="Құпия сөз" 
+           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+  </div>
+
+  <button (click)="onSubmit()" 
+          style="width: 100%; padding: 12px; background: #4A90E2; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;">
+    Кіру
+  </button>
+</div>

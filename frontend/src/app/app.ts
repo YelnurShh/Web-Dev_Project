@@ -1,61 +1,40 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; // ChangeDetectorRef қостық
+import { Component } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ApiService } from './services/api.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [RouterModule, CommonModule],
   template: `
-    <div style="padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-      <h1 style="color: #2c3e50;">🚀 SoulPlace: Django + Angular Жұмыс істеп тұр!</h1>
-      <hr>
-      
-      <div *ngIf="places && places.length > 0; else noData">
-        <div *ngFor="let place of places" 
-             style="background: white; border: 1px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-          <h2 style="margin: 0; color: #3498db;">☕ {{ place.name }}</h2>
-          <p style="color: #7f8c8d; margin: 10px 0;">{{ place.description }}</p>
-          <div style="display: flex; gap: 15px;">
-            <span style="background: #e1f5fe; color: #0288d1; padding: 5px 12px; border-radius: 20px; font-size: 0.9em;">✨ {{ place.vibe }}</span>
-            <span style="background: #e8f5e9; color: #2e7d32; padding: 5px 12px; border-radius: 20px; font-size: 0.9em;">💰 {{ place.budget_level }}</span>
-          </div>
-        </div>
+    <nav style="background: #2c3e50; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="color: white; font-size: 24px; font-weight: bold;">SoulPlace 💖</div>
+      <div style="display: flex; gap: 20px; align-items: center;">
+        <a routerLink="/places" style="color: white; text-decoration: none; font-size: 16px;">📍 Орындар</a>
+        <a routerLink="/preferences" style="color: white; text-decoration: none; font-size: 16px;">🎯 Қалаулар</a>
+        <a *ngIf="!isLoggedIn()" routerLink="/login" style="color: white; text-decoration: none; font-size: 16px;">🔑 Кіру</a>
+        <button *ngIf="isLoggedIn()" (click)="logout()" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 16px;">
+          🚪 Шығу
+        </button>
       </div>
-
-      <ng-template #noData>
-        <div style="padding: 20px; background: #fff3e0; color: #e65100; border-radius: 8px;">
-          {{ loadingMessage }}
-        </div>
-      </ng-template>
+    </nav>
+    <div style="padding: 20px; font-family: sans-serif; background-color: #f9f9f9; min-height: 100vh;">
+      <router-outlet></router-outlet>
     </div>
   `
 })
-export class AppComponent implements OnInit {
-  places: any[] = [];
-  loadingMessage: string = 'Django-дан мәліметтер күтілуде...';
+export class AppComponent {
+  constructor(private router: Router) {}
 
-  constructor(
-    private apiService: ApiService,
-    private cdr: ChangeDetectorRef // Өзгерісті қолмен сездіру үшін
-  ) {}
-
-  ngOnInit() {
-    this.loadPlaces();
+  // Токеннің бар-жоғын тексереді
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('auth_token');
   }
 
-  loadPlaces() {
-    this.apiService.getPlaces().subscribe({
-      next: (data) => {
-        console.log('Django-дан келген деректер:', data);
-        this.places = data;
-        this.loadingMessage = data.length === 0 ? 'База бос, орындар табылмады.' : '';
-        this.cdr.detectChanges(); // Экранды жаңартуға мәжбүрлеу
-      },
-      error: (err) => {
-        console.error('Қате шықты:', err);
-        this.loadingMessage = 'Django серверіне қосылу мүмкін болмады.';
-      }
-    });
+  // Жүйеден шығу логикасы
+  logout() {
+    localStorage.removeItem('auth_token'); // Токенді өшіреміз
+    alert('Жүйеден сәтті шықтыңыз!');
+    this.router.navigate(['/login']); // Логин бетіне лақтырамыз
   }
 }

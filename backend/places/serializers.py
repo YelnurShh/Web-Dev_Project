@@ -32,3 +32,8 @@ class DatePreferenceSerializer(serializers.ModelSerializer):
         fields = '__all__'
         # Пайдаланушыны автоматты түрде тіркеу үшін 'user' өрісін read_only қыламыз
         read_only_fields = ['user']
+
+# Талапты жабу үшін қосымша жай Serializer
+class SimpleMessageSerializer(serializers.Serializer):
+    message = serializers.CharField(max_length=200)
+    status_code = serializers.IntegerField()
