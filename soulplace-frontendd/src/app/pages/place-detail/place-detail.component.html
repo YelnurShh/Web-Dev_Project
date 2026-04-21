@@ -1,0 +1,45 @@
+<div class="detail-page">
+  @if (error) { <div class="error">{{ error }}</div> }
+  @if (place) {
+    <button (click)="goBack()" class="btn-back">← Back to Places</button>
+    <div class="detail-card">
+      <img [src]="place.image_url || 'https://via.placeholder.com/800x300'" [alt]="place.name" />
+      <div class="detail-body">
+        <h1>{{ place.name }}</h1>
+        <p class="location">📍 {{ place.location }}</p>
+        <p class="description">{{ place.description }}</p>
+        <div class="tags">
+          <span class="tag">{{ place.place_type }}</span>
+          <span class="tag">{{ place.budget }}</span>
+          <span class="tag">{{ place.mood }}</span>
+        </div>
+        @if (isLoggedIn) {
+          <button (click)="addToFavorites()" class="btn-fav">♥ Add to Favorites</button>
+        }
+      </div>
+    </div>
+    <div class="reviews-section">
+      <h2>Reviews</h2>
+      @if (isLoggedIn) {
+        <div class="review-form">
+          <select [(ngModel)]="reviewRating">
+            <option [value]="5">★★★★★</option>
+            <option [value]="4">★★★★</option>
+            <option [value]="3">★★★</option>
+            <option [value]="2">★★</option>
+            <option [value]="1">★</option>
+          </select>
+          <textarea [(ngModel)]="reviewText" placeholder="Write your review..."></textarea>
+          <button (click)="submitReview()">Submit Review</button>
+        </div>
+      }
+      @if (reviews.length === 0) { <p class="empty">No reviews yet. Be the first!</p> }
+      @for (review of reviews; track review.id) {
+        <div class="review-card">
+          <div class="review-header"><strong>{{ review.user }}</strong><span>{{ review.rating }}★</span></div>
+          <p>{{ review.text }}</p>
+        </div>
+      }
+    </div>
+  }
+</div>

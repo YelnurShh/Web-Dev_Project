@@ -1,0 +1,20 @@
+<div class="profile-page">
+  <div class="profile-card">
+    <div class="avatar">{{ username[0]?.toUpperCase() }}</div>
+    <h2>{{ username }}</h2>
+    <p class="email">{{ email || 'No email provided' }}</p>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-number">{{ favoritesCount }}</span>
+        <span class="stat-label">Favorites</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">{{ reviewsCount }}</span>
+        <span class="stat-label">Reviews</span>
+      </div>
+    </div>
+
+    <button (click)="logout()" class="btn-logout">Logout</button>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+.auth-container { display: flex; justify-content: center; align-items: center; min-height: 80vh; }
+.auth-card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 360px; display: flex; flex-direction: column; gap: 16px; }
+.auth-card h2 { text-align: center; color: #e85d8a; margin: 0; }
+.auth-card input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; outline: none; }
+.auth-card button { background: #e85d8a; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: 600; }
+.auth-card p { text-align: center; color: #666; }
+.auth-card a { color: #e85d8a; font-weight: 600; }
+.error { background: #ffe0e0; color: #c0392b; padding: 10px; border-radius: 8px; text-align: center; }

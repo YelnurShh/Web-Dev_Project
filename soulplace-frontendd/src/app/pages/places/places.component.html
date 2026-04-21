@@ -1,0 +1,39 @@
+<div class="page">
+  <div class="filter-panel">
+    <h3>Filter Places</h3>
+    <select [(ngModel)]="filters.place_type">
+      <option value="">All Types</option>
+      <option value="cafe">Cafe</option>
+      <option value="restaurant">Restaurant</option>
+      <option value="cinema">Cinema</option>
+      <option value="park">Park</option>
+      <option value="coffee_shop">Coffee Shop</option>
+    </select>
+    <select [(ngModel)]="filters.budget">
+      <option value="">All Budgets</option>
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+    <select [(ngModel)]="filters.mood">
+      <option value="">All Moods</option>
+      <option value="romantic">Romantic</option>
+      <option value="cozy">Cozy</option>
+      <option value="fun">Fun</option>
+      <option value="calm">Calm</option>
+    </select>
+    <input [(ngModel)]="filters.location" placeholder="Search by location..." />
+    <button (click)="applyFilters()">Apply Filters</button>
+    <button (click)="clearFilters()" class="btn-clear">Clear</button>
+  </div>
+  <div class="content">
+    <h2>Find Your Perfect Spot 💕</h2>
+    @if (error) { <div class="error">{{ error }}</div> }
+    @if (places.length === 0) { <p class="empty">No places found. Try different filters.</p> }
+    <div class="grid">
+      @for (place of places; track place.id) {
+        <app-place-card [place]="place" (favoriteClicked)="addToFavorites($event)" />
+      }
+    </div>
+  </div>
+</div>

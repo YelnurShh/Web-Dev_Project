@@ -1,0 +1,21 @@
+.detail-page { max-width: 800px; margin: 0 auto; padding: 24px 32px; }
+.btn-back { background: none; border: none; color: #e85d8a; font-size: 16px; cursor: pointer; margin-bottom: 16px; font-weight: 500; }
+.detail-card { background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); overflow: hidden; }
+.detail-card img { width: 100%; height: 300px; object-fit: cover; }
+.detail-body { padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+.detail-body h1 { margin: 0; }
+.location { color: #888; margin: 0; }
+.description { color: #555; line-height: 1.6; }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag { background: #fce4ec; color: #e85d8a; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; text-transform: capitalize; }
+.btn-fav { background: #e85d8a; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600; width: fit-content; }
+.reviews-section { margin-top: 32px; }
+.reviews-section h2 { color: #333; margin-bottom: 16px; }
+.review-form { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.review-form select, .review-form textarea { padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
+.review-form textarea { height: 80px; resize: none; }
+.review-form button { background: #e85d8a; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.review-card { background: white; padding: 16px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 12px; }
+.review-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.empty { color: #888; }
+.error { background: #ffe0e0; color: #c0392b; padding: 12px; border-radius: 8px; margin-bottom: 16px; }

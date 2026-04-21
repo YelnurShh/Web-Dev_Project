@@ -1,0 +1,15 @@
+<nav class="navbar">
+  <a routerLink="/places" class="logo">SoulPlace 💕</a>
+  <div class="nav-links">
+    <a routerLink="/places">Places</a>
+    @if (isLoggedIn) {
+      <a routerLink="/favorites">Favorites</a>
+      <a routerLink="/profile" class="profile-icon" title="{{ username }}">
+        <div class="avatar-small">{{ initial }}</div>
+      </a>
+    } @else {
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
+    }
+  </div>
+</nav>

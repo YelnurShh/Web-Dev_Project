@@ -1,0 +1,18 @@
+<div class="card">
+  <img [src]="place.image_url || 'https://via.placeholder.com/300x200'" [alt]="place.name" />
+  <div class="card-body">
+    <h3>{{ place.name }}</h3>
+    <p class="location">📍 {{ place.location }}</p>
+    <div class="tags">
+      <span class="tag">{{ place.place_type }}</span>
+      <span class="tag">{{ place.budget }}</span>
+      <span class="tag">{{ place.mood }}</span>
+    </div>
+    <div class="card-actions">
+      <a [routerLink]="['/places', place.id]" class="btn-detail">View Details</a>
+      @if (isLoggedIn) {
+        <button (click)="addToFavorites()" class="btn-fav">♥ Save</button>
+      }
+    </div>
+  </div>
+</div>

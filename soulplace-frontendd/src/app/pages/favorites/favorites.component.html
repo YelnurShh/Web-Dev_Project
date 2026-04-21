@@ -1,0 +1,25 @@
+<div class="page">
+  <h2>My Favorites ♥</h2>
+  @if (error) { <div class="error">{{ error }}</div> }
+  @if (favorites.length === 0 && !error) { <p class="empty">No favorites yet. Go explore places!</p> }
+  <div class="grid">
+    @for (fav of favorites; track fav.id) {
+      <div class="fav-card">
+        <img [src]="fav.place.image_url || 'https://via.placeholder.com/300x200'" [alt]="fav.place.name" />
+        <div class="fav-body">
+          <h3>{{ fav.place.name }}</h3>
+          <p>📍 {{ fav.place.location }}</p>
+          <div class="tags">
+            <span class="tag">{{ fav.place.place_type }}</span>
+            <span class="tag">{{ fav.place.budget }}</span>
+            <span class="tag">{{ fav.place.mood }}</span>
+          </div>
+          <div class="fav-actions">
+            <a [routerLink]="['/places', fav.place.id]" class="btn-detail">View Details</a>
+            <button (click)="removeFavorite(fav.id)" class="btn-remove">Remove</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
