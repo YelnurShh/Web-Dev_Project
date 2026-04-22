@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Place, Favorite, Review
+from .models import Place, Favorite, Review, UserProfile
 
 
 class RegisterSerializer(serializers.Serializer):
@@ -54,3 +54,8 @@ class ReviewSerializer(serializers.ModelSerializer):
         model        = Review
         fields       = ['id', 'user', 'place', 'rating', 'text', 'created_at']
         read_only_fields = ['user', 'created_at']
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model  = UserProfile
+        fields = ['id', 'bio', 'avatar', 'phone']

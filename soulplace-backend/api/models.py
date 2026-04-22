@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class ActivePlaceManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset()  
+    
 
 class Place(models.Model):
     PLACE_TYPE_CHOICES = [
@@ -29,6 +33,7 @@ class Place(models.Model):
     budget      = models.CharField(max_length=20, choices=BUDGET_CHOICES)
     mood        = models.CharField(max_length=20, choices=MOOD_CHOICES)
     image_url   = models.URLField(blank=True, null=True)
+    objects = ActivePlaceManager()
 
     def __str__(self):
         return self.name
@@ -57,3 +62,13 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.user.username} → {self.place.name} ({self.rating}★)"
+    
+
+class UserProfile(models.Model):
+    user   = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    bio    = models.TextField(blank=True)
+    avatar = models.URLField(blank=True)
+    phone  = models.CharField(max_length=20, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s profile"

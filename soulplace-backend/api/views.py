@@ -6,11 +6,13 @@ from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from django.contrib.auth import authenticate
 
-from .models import Place, Favorite, Review
+
+from .models import Place, Favorite, Review,UserProfile
 from .serializers import (
     RegisterSerializer, PlaceSerializer,
     FavoriteSerializer, PlaceFilterSerializer,
-    ReviewSerializer
+    ReviewSerializer,
+    UserProfileSerializer
 )
 
 
@@ -60,16 +62,29 @@ def logout_view(request):
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['GET', 'PATCH'])
 @permission_classes([IsAuthenticated])
 def profile_view(request):
     user = request.user
-    return Response({
-        'username': user.username,
-        'email': user.email,
-        'favorites_count': Favorite.objects.filter(user=user).count(),
-        'reviews_count': Review.objects.filter(user=user).count(),
-    })
+    profile, _ = UserProfile.objects.get_or_create(user=user)
+
+    if request.method == 'GET':
+        return Response({
+            'username': user.username,
+            'email': user.email,
+            'bio': profile.bio,
+            'avatar': profile.avatar,
+            'phone': profile.phone,
+            'favorites_count': Favorite.objects.filter(user=user).count(),
+            'reviews_count': Review.objects.filter(user=user).count(),
+        })
+
+    if request.method == 'PATCH':
+        serializer = UserProfileSerializer(profile, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
 
 class PlaceListView(APIView):
     permission_classes = [AllowAny]
